@@ -1,0 +1,50 @@
+<h4 class="attribute-name box-title">
+	<a class="trigger" data-control="_onRollHPFormula">
+		{{~localize "DND5E.HitPoints"}}
+	</a>
+</h4>
+{{~#unless (or flags.current-hit-points flags.maximum-hit-points)~}}
+	<span title="{{localize "MOBLOKS5E.Average"}}" class="attr-value">{{system.attributes.hp.average}}</span>
+{{~/unless~}}
+{{#if flags.current-hit-points}}
+	<span title="{{localize "MOBLOKS5E.Current"}}"
+		placeholder="0"
+		data-field-key="system.attributes.hp.value"
+		data-dtype="Number"
+		class="attr-value"
+		contenteditable="{{owner}}">
+		{{~#if system.attributes.hp.value~}}
+			{{~system.attributes.hp.value~}}
+		{{~else~}}
+			0
+		{{~/if~}}
+	</span>
+{{~/if~}}
+{{~#if (and flags.current-hit-points flags.maximum-hit-points)~}}
+	<span class="sep"> / </span>
+{{~/if~}}
+{{~#if flags.maximum-hit-points~}}
+	<span title="{{localize "MOBLOKS5E.Maximum"}}"
+		placeholder="0"
+		data-field-key="system.attributes.hp.max"
+		data-dtype="Number"
+		class="attr-value"
+		contenteditable="{{owner}}">
+		{{~#if system.attributes.hp.max~}}
+			{{system.attributes.hp.max~}}
+		{{~else~}}
+			0
+		{{~/if~}}
+	</span>
+{{/if}}
+
+{{#if system.attributes.hp.formula}}<span class="paren">(</span>{{~/if~}}
+<span title="Average: {{system.attributes.hp.average}}"
+	placeholder="(1d6)"
+	data-field-key="system.attributes.hp.formula"
+	data-dtype="Roll"
+	class="attr-value"
+	contenteditable="{{flags.editing}}">
+		{{~system.attributes.hp.formula~}}
+</span>{{~" "~}}
+{{#if system.attributes.hp.formula}}<span class="paren">)</span>{{~/if~}}
